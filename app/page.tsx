@@ -4,6 +4,7 @@ import { useState } from "react"
 import { LeftNavSidebar } from "./components/LeftSideBar"
 import Dashboard from "./components/Dashboard"
 import { SolanaTokenGenerator } from "./components/CreateToken"
+import { SendSolanaComponent } from "./components/SendSOL"
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("dashboard")
@@ -15,7 +16,7 @@ export default function Home() {
       case "analytics":
         return <div>This is analytics</div>
       case "customers":
-        return <div>Hii there, customers</div>
+        return <SendSolanaComponent/> 
       case "createToken":
         return <SolanaTokenGenerator/>
       case "settings":
