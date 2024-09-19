@@ -1,26 +1,38 @@
-"use client";
-import { useState } from "react";
-import { LeftNavSidebar } from "./components/LeftSideBar";
+"use client"
+
+import { useState } from "react"
+import { LeftNavSidebar } from "./components/LeftSideBar"
+import Dashboard from "./components/Dashboard"
+import { SolanaTokenGenerator } from "./components/CreateToken"
 
 export default function Home() {
-  const [selectedTab, setSelectedTab] = useState("dashboard");
+  const [activeTab, setActiveTab] = useState("dashboard")
 
-  const handleTabChange = (tabId: string) => {
-    console.log("Selected Tab:", tabId);
-    setSelectedTab(tabId);
-  };
+  const renderContent = () => {
+    switch (activeTab) {
+      case "dashboard":
+        return <Dashboard />
+      case "analytics":
+        return <div>This is analytics</div>
+      case "customers":
+        return <div>Hii there, customers</div>
+      case "createToken":
+        return <SolanaTokenGenerator/>
+      case "settings":
+        return <div>Add settings </div>
+      default:
+        return <Dashboard />
+    }
+  }
 
   return (
-    <div className="flex h-screen">
-      <LeftNavSidebar onTabChange={handleTabChange} />
-      <div>
-        {/* Render content based on the selected tab */}
-        {selectedTab === "dashboard" && <p>this is dashboard</p>}
-        {selectedTab === "analytics" && <p>this is analytics</p>}
-        {selectedTab === "customers" && <p>this is customers</p>}
-        {selectedTab === "createToken" && <p>this is createToken</p>}
-        {selectedTab === "settings" && <p>this is settings</p>}
-      </div>
+    <div className="flex h-screen overflow-hidden">
+      <LeftNavSidebar onTabChange={setActiveTab} />
+      <main className="flex-1 overflow-y-auto">
+        <div className="container mx-auto px-4 py-8">
+          {renderContent()}
+        </div>
+      </main>
     </div>
-  );
+  )
 }
